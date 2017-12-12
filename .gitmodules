@@ -1,3 +1,4 @@
 [submodule "output"]
 	path = output
 	url = git@github.com:lyndond/lyndond.github.io
+	ignore = all
