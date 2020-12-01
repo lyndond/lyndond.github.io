@@ -2,3 +2,6 @@
 	path = output
 	url = git@github.com:lyndond/lyndond.github.io
 	ignore = all
+[submodule "themes/hugo-theme-pure"]
+	path = themes/hugo-theme-pure
+	url = git@github.com:xiaoheiAh/hugo-theme-pure.git
