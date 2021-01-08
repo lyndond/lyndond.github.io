@@ -20,7 +20,7 @@ title                    : "lyndon duong"
 title_separator          : "-"
 subtitle                 : "homepage" # site tagline that appears below site title in masthead
 name                     : "lyndon duong"
-description              : ""
+description              : "lyndon's homepage"
 url                      : "https://lyndonduong.com" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "lyndond" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
