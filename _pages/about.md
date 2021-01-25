@@ -1,7 +1,8 @@
 ---
-layout: single
-title: about
-permalink: /about/
+layout: cv
+title:
+permalink: /cv/
 ---
 
+[Under construction]
 
