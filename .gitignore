@@ -3,3 +3,13 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IPython
+profile_default/
+ipython_config.py
+
+.DS_Store
+*.swp
