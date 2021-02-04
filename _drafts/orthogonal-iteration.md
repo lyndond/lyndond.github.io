@@ -7,7 +7,7 @@ tags: numerical linear-algebra algorithms eigenvectors eigenvalues
 A tutorial for an algorithm I implemented in our ``plenoptic`` [PyTorch package](https://github.com/LabForComputationalVision/plenoptic) package to synthesize eigendistortions.
 <!--more-->
 
-[[PyTorch code available here]](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-16-orthogonal-iteration.ipynb)
+[PyTorch code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-16-orthogonal-iteration.ipynb){: .btn .btn--success .btn--large}
 
 Let's define some random matrix ``C``and compute its top and bottom ``k`` eigenvalue/vectors.
 
@@ -101,7 +101,7 @@ q_top, e_top = power_iter(C, k=2)
     Power iter: 100%|██████████| 10000/10000 [00:00<00:00, 21828.63it/s]
 
 
-### How do we find the _smallest_ eigenvalues?
+## How do we find the _smallest_ eigenvalues?
 Like I mentioned before, the power method is only effective for _highest magnitude_ eigenvalue/vector pairs.
 So a simple trick we can do to compute the bottom ``k`` eigenval/vec pairs is to _shift_ the spectrum of ``C``,
 

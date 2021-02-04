@@ -1,13 +1,13 @@
 ---
 title: Elliptical slice sampling
 classes: wide
-tags: sampling bayesian python slice probability
+tags: sampling bayesian python slice probability ml
 excerpt_separator: <!--more-->
 ---
 A Python implementation/tutorial of the elegant algorithm introduced by [Iain Murray et al. (2010)](https://arxiv.org/abs/1001.0175). Useful for sampling from posteriors proportional to Gaussian priors.
 <!--more-->
 
-[[Python code found here]](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-09-elliptical-slice-sampling.ipynb)
+[Python code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-09-elliptical-slice-sampling.ipynb){: .btn .btn--success .btn--large}
 
 The goal is to sample from a posterior distribution over latent parameters that is proportional to some likelihood times a multivariate gaussian prior that ties the latents to the observed data.
 
