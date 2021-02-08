@@ -4,6 +4,7 @@ classes: wide
 tags: numerical linear-algebra algorithms eigenvectors eigenvalues
 header:
     teaser: "/assets/posts/orthogonal_iteration/output_10_0.png"
+excerpt_separator: <!--more-->
 ---
 
 A tutorial for an algorithm I implemented in our ``plenoptic`` [PyTorch package](https://github.com/LabForComputationalVision/plenoptic) package to synthesize eigendistortions.
