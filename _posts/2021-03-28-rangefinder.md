@@ -11,7 +11,7 @@ Here I'll walk through a cool algorithm that adaptively approximates the column
 space of a matrix using random projections.
 <!--more-->
 
-[PyTorch code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-03-28-randomized-range-finder.ipynb){:.btn .btn--success .btn--large}
+[PyTorch code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-03-28-rangefinder.ipynb){:.btn .btn--success .btn--large}
 
 
 ## Background
