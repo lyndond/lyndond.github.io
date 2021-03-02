@@ -1,5 +1,5 @@
 ---
-title: 
+title: Randomized adaptive range finder
 tags: linear-algebra algorithms pytorch
 classes: wide
 header:
