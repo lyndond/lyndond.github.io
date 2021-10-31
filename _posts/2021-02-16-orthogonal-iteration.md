@@ -10,7 +10,8 @@ excerpt_separator: <!--more-->
 A tutorial for an algorithm I implemented in our ``plenoptic`` [PyTorch package](https://github.com/LabForComputationalVision/plenoptic) package to synthesize eigendistortions.
 <!--more-->
 
-[PyTorch code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-16-orthogonal-iteration.ipynb){: .btn .btn--success .btn--large}
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2021-02-16-orthogonal-iteration.ipynb)
+[![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-16-orthogonal-iteration.ipynb)
 
 Let's define some random matrix ``C``and compute its top and bottom ``k`` eigenvalue/vectors.
 

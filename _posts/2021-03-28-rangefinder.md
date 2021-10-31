@@ -7,13 +7,11 @@ header:
 excerpt_separator: <!--more-->
 ---
 
-Here I'll walk through a cool algorithm that adaptively approximates the column
-space of a matrix using random projections.
+A cool algorithm that adaptively approximates the column space of a matrix using random projections.
 <!--more-->
 
-[PyTorch code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-03-28-rangefinder.ipynb){:.btn .btn--success .btn--large}
-
-
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2021-03-28-rangefinder.ipynb)
+[![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-03-28-rangefinder.ipynb)
 ## Background
 
 Imagine we have a matrix ``A`` and that we wish to approximate its column space (i.e. range).

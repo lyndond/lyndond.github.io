@@ -9,7 +9,8 @@ excerpt_separator: <!--more-->
 A Python implementation of the elegant algorithm introduced by [Iain Murray et al. (2010)](https://arxiv.org/abs/1001.0175). 
 <!--more-->
 
-[Python code available here](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-09-elliptical-slice-sampling.ipynb){: .btn .btn--success .btn--large}
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2021-02-09-elliptical-slice-sampling.ipynb)
+[![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-09-elliptical-slice-sampling.ipynb)
 
 The goal is to sample from a posterior distribution over latent parameters that is proportional to some likelihood times a multivariate gaussian prior that ties the latents to the observed data.
 

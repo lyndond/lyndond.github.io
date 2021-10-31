@@ -11,8 +11,8 @@ This short post will cover graphical intuition and PyTorch code for two differen
 instance.
 <!--more-->
 
-[PyTorch code available here](https://github.com/lyndond/lyndond.github.
-io/blob/master/code/2021-02-23-batch-instance-whitening.ipynb){:.btn .btn--success .btn--large}
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2021-02-23-batch-instance-whitening.ipynb)
+[![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-02-23-batch-instance-whitening.ipynb)
 
 # Intro
 Whitening is a fundamental concept in statistics, and turns up very often in machine learning.
