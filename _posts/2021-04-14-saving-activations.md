@@ -10,9 +10,6 @@ excerpt_separator: <!--more-->
 Simple code to save activations of a model's intermediate layers.
 <!--more-->
 
-Code snippet 
-<!--more-->
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2021-04-14-saving-activations.ipynb)
 [![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-04-14-saving-activations.ipynb)
 
