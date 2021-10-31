@@ -21,7 +21,5 @@ In 2015, I set out to translate the book's entire MATLAB codebase (thousands of 
 
 
 ## [<i class="fab fa-github"></i> ``misc. code from blog posts``](https://github.com/lyndond/lyndond.github.io/tree/master/code){: .btn .btn--inverse .btn--large} 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master)
 All code from blog posts will be pushed to this repo.
-
-
-
