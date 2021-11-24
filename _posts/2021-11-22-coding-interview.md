@@ -51,6 +51,6 @@ After completing a problem, I would punch in: the unique question ID; the date o
 
 Finally, I created some charts showing the number of questions completed, and my overall confidence in each subject.  I think **this** is a proof-of-principle concept for what all online algo courses and question banks should provide. The course by itself was great but its effectiveness was magnified 10x with systematic, targeted studying. Seeing my strengths and weaknesses in real-time was the key to efficient learning.
 
-There just wasn't enough time to learn _everything_ that Google says I should know. But in the end I was definitely prepared for both multi-part questions asked during my interviews, which covered: multiple array sorting, string manipulation, and some tricky graph and recursion problems.
+There just wasn't enough time to learn _everything_ that Google says I should know. But in the end I was definitely prepared for both multi-part questions asked during my interviews.
 
 Now I'm onto the Project Search round where you're supposed to patiently wait for a team to fish your application out of the large pool of candidates to see if you'd be a good fit. This stage seems to depend on whether the skills you already possess (coding languages, domain experience, etc.) match the requirements of specific teams on the intern projects they have available. I'd be really stoked to land a match, but it's out of my control at this point. At the very least, I'm happy that all the effort I put into the part that _was_ under my control paid off and that I made it this far.
