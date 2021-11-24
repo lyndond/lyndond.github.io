@@ -6,7 +6,7 @@ header:
     teaser: "/assets/posts/algos_studying/charts.png"
 excerpt_separator: <!--more-->
 ---
-Reversing linked lists w/ hands tied behind your back while blindfolded underwater.
+How to reverse linked lists w/ hands tied behind your back while blindfolded underwater.
 <!--more-->
 
 I received great news that I did well on my Google internship technical interviews!
