@@ -111,7 +111,7 @@ $$
 \tau \dot{V}_{i}=-V_{i}+g_{i} w_{i}(\tau \dot{\phi}+\phi)-\tau g_{i} \sum_{j} \Omega_{i j} o_{j} - \kappa_{i} f_{i}.
 $$
 
-where the taus are time constants, and $\kappa_{i}=\mu g_{i}\left(1-\frac{\tau}{\tau_{a}}\right)$. 
+where the taus are time constants, and $$\kappa_{i}=\mu g_{i}\left(1-\frac{\tau}{\tau_{a}}\right)$$. 
 What is interesting is the lack of an explicit $$\hat{\phi}$$ reconstruction term.
 There is a $$\dot{\phi}$$ (dot) term, implying a neuron must receive both the stimulus input as well as the stimulus time-derivative.
 This dynamical system means that each neuron's voltage has an additional leak term (last term) that is dependent on its own spiking history.
@@ -124,13 +124,13 @@ $$
 \dot{r}_{i}=-\frac{1}{\tau} r_{i}+o_{i}
 $$
 
-The subtractive adaptation signal $f$ is the spike history over a long time window.
+The subtractive adaptation signal $$f$$ is the spike history over a long time window.
 
 $$
 \dot{f}_{i}=-\frac{1}{\tau_{a}} f_{i}+o_{i}
 $$
 
-The gain of each neuron $i$ is determined by the regularization constant and the decoding weights.
+The gain of each neuron $$i$$ is determined by the regularization constant and the decoding weights.
 
 $$
 g_{i} = 1 /\left(w_{i}^{2}+\mu\right)
