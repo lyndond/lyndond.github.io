@@ -136,7 +136,7 @@ $$
 g_{i} = 1 /\left(w_{i}^{2}+\mu\right)
 $$
 
-The lateral recurrent weights are also determiend by the decoding weights and regularization constant.
+The lateral recurrent weights are also determined by the decoding weights and regularization constant.
 
 $$
 \Omega_{i j}=w_{i} w_{j}+\mu \delta_{i j}
