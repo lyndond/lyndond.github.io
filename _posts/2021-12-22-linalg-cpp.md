@@ -37,7 +37,7 @@ Other operations that will be helpful for training a simple neural net are:
 ### Constructor and printing methods
 
 We'll create a templated class to allow us to create matrices with arbitrary type (float, double, int, etc.).
-To instantiate instantiate a 2x3 float `Matrix`, we just need to call `Matrix<float> M(2, 3);`.
+To instantiate a 2x3 float `Matrix`, we just need to call `Matrix<float> M(2, 3);`.
 The constructor will also instatiate an empty 1D `(2 * 3)` `std::vector` with which to store the data.
 The shape and number of elements of the matrix are stored in a public tuple.
 For simplicity, the minimum size of each dimension should be 1, like MATLAB, and unlike numpy.
@@ -345,6 +345,7 @@ int main(){
   (MT.matmul(M)).print();  // form symm. pos. def. matrix
 
   (M.apply_function([](auto x){return x-x;} )).print(); // apply fun
+}
 ```
 
 **Outputs:**
@@ -357,7 +358,7 @@ Matrix Size([2, 2])
 0.0383611 -0.310235 
 -0.615681 -0.356848 
 
-// M -M
+// M - M
 0 0 
 0 0 
 
@@ -365,7 +366,7 @@ Matrix Size([2, 2])
 0.0767223 -0.62047 
 -1.23136 -0.713695 
 
-// 2*M
+// 2 * M
 0.0767223 -0.62047 
 -1.23136 -0.713695 
 
