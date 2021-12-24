@@ -4,10 +4,12 @@
 
 #include "matrix.h"
 #include "nn.h"
-#include <limits>
+#include <fstream>
+#include <deque>
+//#include <iomanip>
 
 // helper to initialize multi-layer perceptron with n hidden layers each w/ same num hidden units
-nn::MLP<float> make_model(size_t in_channels,
+auto make_model(size_t in_channels,
                           size_t out_channels,
                           size_t hidden_units_per_layer,
                           int hidden_layers,
@@ -25,22 +27,79 @@ nn::MLP<float> make_model(size_t in_channels,
   return model;
 }
 
-// helper function to create training data
-Matrix<float> linear_nonlinear(Matrix<float> x, Matrix<float> A, Matrix<float> b) {
-  auto y = A.matmul(x) + b;
-  y = y.apply_function(nn::sigmoid);
-  return y;
+void test_matrix();
+
+auto mean(const auto &d) {
+  float mu {0.};
+  for(auto v: d){
+    mu += v;
+  }
+  return mu/d.size();
 }
 
-void test_matrix(){
-  auto M = mtx<float>::randn(2, 2); // init randn matrix
+void log(auto &file, const auto &x, const auto &y, const auto &y_hat){
+  auto mse = (y.data[0] - y_hat.data[0]);
+  mse = mse*mse;
+
+  file << mse << " "
+       << x.data[0] << " "
+       << y.data[0] << " "
+       << y_hat.data[0] << " \n";
+}
+
+int main() {
+//  test_matrix();
+
+  std::srand(42069);
+
+  // init model
+  int in_channels{1}, out_channels{1}, hidden_units_per_layer{8}, hidden_layers{3};
+  float lr{.5f};
+//  auto model = make_model(in_channels, out_channels, hidden_units_per_layer, hidden_layers, lr);
+  auto model = make_model(
+      in_channels=1,
+      out_channels=1,
+      hidden_units_per_layer=8,
+      hidden_layers=3,
+      lr=.5f);
+
+  // train
+  std::ofstream my_file;
+  my_file.open ("data2.txt");
+  int max_iter{1000}, print_every{500};
+  float mse;
+  auto deque = std::deque<float>(print_every);
+  for(int i = 1; i<=max_iter; ++i) {
+    // generate (x, y) training data
+    auto x = lynalg::mtx<float>::rand(in_channels, 1).multiply_scalar(3.);
+    auto y = x.apply_function([](float v) -> float {return sin(v)*sin(v);});
+
+    auto y_hat = model(x);  // forward pass
+    model.backprop(y); // backward pass
+
+    // compute and print error
+    mse = (y - y_hat).square().data[0];
+    deque.push_back(mse);
+    if ((i+1)%print_every==0) {
+      log(my_file, x, y, y_hat);
+//      my_file << mse << " " << x.data[0] << " " << y.data[0] << " " << y_hat.data[0] << " \n";
+//      std::cout << std::setprecision(4) << std::scientific << "iter: " << i << " -- loss: " << mean(deque) << std::endl;
+    }
+
+  }
+  my_file.close();
+
+}
+
+void test_matrix() {
+  auto M = mtx<float>::randn(2, 3); // init randn matrix
 
   M.print_shape();
   M.print(); // print the OG matrix
 
-  (M-M).print();  // print M minus itself
+  (M - M).print();  // print M minus itself
 
-  (M+M).print();  // print its sum
+  (M + M).print();  // print its sum
   (M.multiply_scalar(2.f)).print();  // print 2x itself
 
   (M.multiply_elementwise(M)).print(); // mult M w itself
@@ -49,38 +108,23 @@ void test_matrix(){
   MT.print();
   (MT.matmul(M)).print();  // form symmetric positive definite matrix
 
-  (M.apply_function([](auto x){return x-x;} )).print(); // apply function
-}
+  (M.apply_function([](auto x) { return x - x; })).print(); // apply function
 
-int main() {
-  test_matrix();
-  // init the MLP
-  auto in_channels{2}, out_channels{1}, hidden_units_per_layer{4}, hidden_layers{2};
-  auto lr{.001f};
-  nn::MLP<float> model = make_model(in_channels, out_channels, hidden_units_per_layer, hidden_layers, lr);
+  M.print();
+  M.sum().print();
+  M.sum(0).print();
+  M.sum(1).print();
 
-  // fixed linear transform y=f(Ax+b)
-  auto A = lynalg::mtx<float>::randn(out_channels, in_channels);
-  auto b = lynalg::mtx<float>::randn(out_channels, 1);
+  M.mean().print();
+  M.mean(0).print();
+  M.mean(1).print();
 
-  // train
-  auto i{1}, max_iter{10000};
-  auto mse{std::numeric_limits<float>::infinity()};
-  while (mse > 1E-8f && i <= max_iter) {
-    // generate (x, y) training data
-    auto x = lynalg::mtx<float>::randn(in_channels, 1);
-    auto y = linear_nonlinear(x, A, b);
+  M.cat(M, 0).print();
+  M.cat(M, 1).print();
 
-    // run through network
-    auto y_hat = model(x);
+  auto uno = mtx<float>::ones(2, 2);
 
-    // backprop and change weights
-    model.backprop(y);
-
-    // compute and print error
-    mse = (y - y_hat).square().data[0];
-    std::cout << "iter " << i << "/" << max_iter << " | loss: " << mse << std::endl;
-    ++i;
-  }
-
+  uno.print();
+  uno.diag().print();
+  uno.diag().diag().print();
 }

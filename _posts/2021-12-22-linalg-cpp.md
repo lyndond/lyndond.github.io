@@ -1,6 +1,6 @@
 ---
 classes: wide
-title: Training a neural net from scratch in C++ (Part 1)
+title: C++ neural networks from scratch -- Pt 1. building a matrix library
 tags: c++ ml linear-algebra
 header:
     teaser: "assets/posts/nn_cpp/matrix_class.png"

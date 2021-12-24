@@ -5,7 +5,6 @@
 #include "matrix.h"
 #include <random>
 #include <utility>
-#include <algorithm>
 #include <cassert>
 
 using namespace lynalg;
@@ -65,7 +64,6 @@ class MLP {
     }
     return prev;
   }
-
   Matrix<T> operator()(Matrix<T> x) {
     return forward(x);
   }
@@ -75,31 +73,27 @@ class MLP {
 
     // determine the simple error
     // error = target - output
-    Matrix<T> error(target);
-    error = (error - activations.back());
+    auto y = target;
+    auto y_hat = activations.back();
+    auto error = (target - y_hat);
 
-    // back propagate the error from output to input
-    // and adjust weights of weights and biases
-
+    // backprop the error from output to input and step the weights
     for(int i = weight_matrices.size() - 1 ; i >= 0; --i) {
       //calculating errors for previous layer
+      auto Wt = weight_matrices[i].T();
+      auto prev_errors = Wt.matmul(error);
 
-      Matrix<T> Wt = weight_matrices[i].T();
-      Matrix<T> prev_errors = Wt.matmul(error);
-
-      // dw = lr * error * d/dx(activated value)
-      Matrix<T> d_outputs = activations[i+1].apply_function(nn::d_sigmoid);
-      Matrix<T> gradients = error.multiply_elementwise(d_outputs);
+      auto d_outputs = activations[i+1].apply_function(d_sigmoid);
+      auto gradients = error.multiply_elementwise(d_outputs);
       gradients = gradients.multiply_scalar(lr);
-      Matrix<T> At = activations[i].T();
-      Matrix<T> weight_gradients = gradients.matmul(At);
+      auto a_trans = activations[i].T();
+      auto weight_gradients = gradients.matmul(a_trans);
 
-      //adjusting bias and weight
+      //adjust weights
       bias_vectors[i] = bias_vectors[i].add(gradients);
       weight_matrices[i] = weight_matrices[i].add(weight_gradients);
       error = prev_errors;
     }
-
   }
 
 };
