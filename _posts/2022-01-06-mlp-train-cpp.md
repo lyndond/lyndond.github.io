@@ -11,6 +11,10 @@ Training a multilayer perceptron built in pure C++.
 
 [![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-12-22_neural_net_cpp/)
 
+- [Part 1 -- building a matrix library]({% post_url 2021-12-22-linalg-cpp %})
+- [Part 2 -- building an MLP]({% post_url 2021-12-29-mlp-build-cpp %})
+- [Part 3 -- model training]({% post_url 2022-01-06-mlp-train-cpp %})
+
 ## Fitting a neural network to data
 
 We've built a tiny matrix library, and a flexible multilayer perceptron (MLP) with forward and backward methods.

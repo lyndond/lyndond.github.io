@@ -8,5 +8,8 @@ ideas:
     - [x] randomized algos for approximate matrix decomposition
     - [x] SGMCMC
     - Julia	
-    - [ ] pivae
+    - [x] pivae
     - [ ] PCA
+    - C++
+      - [x] build a neural net
+      - [x] open source

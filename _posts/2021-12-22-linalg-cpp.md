@@ -11,6 +11,10 @@ Creating a bare-bones linear algebra library to train a neural net.
 
 [![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-12-22_neural_net_cpp/)
 
+- [Part 1 -- building a matrix library]({% post_url 2021-12-22-linalg-cpp %})
+- [Part 2 -- building an MLP]({% post_url 2021-12-29-mlp-build-cpp %})
+- [Part 3 -- model training]({% post_url 2022-01-06-mlp-train-cpp %})
+
 Without having access to any linear algebra or autodifferentiation libraries, what's the absolute **bare-minimum** required to train a neural network?
 Specifically, what do we need to build and train a multilayer perceptron (a cascade of linear-nonlinear layers) to regress onto some data?
 
