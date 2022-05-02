@@ -1,5 +1,5 @@
 ---
-title: Randomized adaptive range finder
+title: PyTorch Randomized adaptive range finder
 tags: linear-algebra algorithms pytorch
 classes: wide
 header:
@@ -12,6 +12,7 @@ A cool algorithm that adaptively approximates the column space of a matrix using
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2021-03-28-rangefinder.ipynb)
 [![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2021-03-28-rangefinder.ipynb)
+
 ## Background
 
 Imagine we have a matrix ``A`` and that we wish to approximate its column space (i.e. range).
@@ -21,7 +22,7 @@ and, approximating the range is the essential first step of randomized SVD or ei
 
 We're going to find a orthonormal basis ``Q`` that approximates the column space of ``A``.
 
-A modern approach to this problem is to _randomly_ initialize a bunch of vectors $$\Omega$$, then push those vectors through ``A``, $$Y=A\Omega$$, and then orthogonaize the output matrix ``Y``. 
+A modern approach to this problem is to _randomly_ initialize a bunch of vectors $$\Omega$$, then push those vectors through ``A``, $$Y=A\Omega$$, and then orthogonaize the output matrix ``Y``.
 The idea is that ``Y`` is representative of the action ``A`` has on its inputs, and by orthogonalizing ``Y`` to get ``Q``, we get a nice approximation to the basis in which those outputs live.
 
 The problem with this approach is that we need to select the number of vectors in $$\Omega$$ ahead of time.
@@ -29,7 +30,6 @@ What if we don't know the dimensionality of the output space, and we want to fig
 
 Ideally, our basis ``Q`` will minimize the exact approximation error $$\text{error(Q)}=\parallel A - QQ^\top A\parallel$$, where the bars are a matrix norm.
 If ``Q`` is the true column space of ``A``, then this norm should be zero.
-
 
 ```python
 import torch
@@ -55,16 +55,10 @@ A = get_tensor(n, rank_true)
 A.shape
 ```
 
-
-
-
     torch.Size([2000, 2000])
-
-
 
 I made a ``2000 x 2000`` matrix whose rank is 111, but we're going to pretend we don't know that and we're trying to find it.
 We can plot the spectrum of this matrix below.
-
 
 ```python
 _,s,_=torch.svd(A, compute_uv=False)
@@ -73,14 +67,12 @@ ax.stem(s[:200])
 ax.set(title="First 200 eigenvals of spectrum");
 ```
 
-    
-
 <div style="text-align:center"><img src="/assets/posts/rangefinder/output_4_0.png" style="width:22em"/></div>
 
 ## The algorithm
 
 Instead of choosing the dimensionality of ``Q``, we're going to build ``Q`` **iteratively**, one vector at a time.
-We typically can't directly compute the approximation error $$\text{error(Q)}=\parallel A - QQ^\top A\parallel$$, because we don't have direct access to ``A``, and only have access to it implicitly via matrix-vector products. 
+We typically can't directly compute the approximation error $$\text{error(Q)}=\parallel A - QQ^\top A\parallel$$, because we don't have direct access to ``A``, and only have access to it implicitly via matrix-vector products.
 
 We begin by drawing a sequence of ``r`` standard Gaussian vectors ``omega`` where ``r`` is a small integer that balances computational cost and reliability.
 
@@ -92,17 +84,15 @@ $$
 
 with probability at least $$1-10^{-r}$$.
 Even though we won't always have access to ``A`` to compute the left side, we can easily compute the term on the right side.
-**In words**, this means that the exact approximation error to the column space of ``A`` is bounded from the top by some constant times the maximum norm of the difference between some vector ``A * omega`` and its ``Q``-projection, ``QQ.T * A * omega``. 
+**In words**, this means that the exact approximation error to the column space of ``A`` is bounded from the top by some constant times the maximum norm of the difference between some vector ``A *omega`` and its ``Q``-projection, ``QQ.T* A * omega``.
 And the more omegas we start with, the higher the probability.
 
 So the idea is that we: 0) start with an empty ``Q``; 1) draw a new Gaussian vector ``omega`` on each iteration; 2) matrix multiply it to get ``y = A * omega`` and store it; 3) orthonormalize it against all previous ``Q``; 4) append to ``Q``.
 The moment we get ``r`` consecutive ``y`` vectors whose norms are smaller than some desired threshold, then we can stop.
 
-
 So by using a series of random projections, we can determine the column space (and therefore the rank) of any arbitrarily large matrix.
 More info of this algo can be found in in Halko et al. 2011 (Algo 4.2).
 Below is a Python torch implementation with detailed comments.
-
 
 ```python
 def adaptive_randomized_range_finder(
@@ -180,15 +170,11 @@ Q_approx, losses_approx, losses_true = adaptive_randomized_range_finder(A, r=10,
 
     Approximation error thresh or max_iter reached
 
+## Conclusion
 
-    
-
-
-## Conclusion:
 The algorithm automatically stopped at the intrinsic rank of the matrix (rank=111)!
 We successfully used randomized projections to compute the column space of a matrix.
 Approximating the range of a matrix is the more difficult step in computing a randomized SVD or eigendecomposition, so  this sets us up nicely for follow-up analyses.
-
 
 ```python
 print(f"real rank: {rank_true} | computed rank: {Q_approx.shape[1]}")
@@ -201,6 +187,5 @@ plt.legend();
 ```
 
     real rank: 111 | computed rank: 111
-
 
 <div style="text-align:center"><img src="/assets/posts/rangefinder/output_8_1.png" style="width:22em"/></div>
