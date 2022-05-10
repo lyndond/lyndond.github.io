@@ -110,6 +110,9 @@ author:
     - label: "github.com/lyndond"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/lyndond"
+    - label: "neurotree"
+      icon: "fas fa-brain"
+      url: "https://neurotree.org/beta/tree.php?pid=861257"
 
 
 # Site Footer
