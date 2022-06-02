@@ -17,30 +17,31 @@ I recently had to run a trained model and save intermediate-layer activations.
 This is some simple code to do that using torch forward hooks.
 
 First define the hook:
+
 ```python
 import torch
 import torch.nn.functional as F
 from torch import nn
 import collections
-from typing import DefaultDict, Tuple, List
+from typing import DefaultDict, Tuple, List, Dict
 from functools import partial
 
-def save_adaptive_activations(
+def save_activations(
         activations: DefaultDict,
-        hidden_states: DefaultDict,
         name: str,
         module: nn.Module,
         inp: Tuple,
         out: torch.Tensor
 ) -> None:
-    """PyTorch Forward hook to save outputs and inhibitory hidden state at each forward
+    """PyTorch Forward hook to save outputs at each forward
     pass. Mutates specified dict objects with each fwd pass.
     """
     activations[name].append(out.detach().cpu())
 ```
 
-Then define a helper method that registers the hook to specified layers of a model 
+Then define a helper method that registers the hook to specified layers of a model
 (requires `functools.partial`).
+
 ```python
 def register_activation_hooks(
         model: nn.Module,
@@ -61,16 +62,17 @@ def register_activation_hooks(
         ``layers_to_save``.
     """
     activations_dict = collections.defaultdict(list)
-    hidden_dict = collections.defaultdict(list)
 
     for name, module in model.named_modules():
         if name in layers_to_save:
             module.register_forward_hook(
-                partial(save_adaptive_activations, activations_dict, hidden_dict, name)
+                partial(save_activations, activations_dict, name)
             )
     return activations_dict
 ```
+
 Now define a simple model to test out `register_activation_hooks()`:
+
 ```python
 class Net(nn.Module):
     """Simple two layer conv net"""
@@ -84,18 +86,17 @@ class Net(nn.Module):
         z = F.relu(self.conv2(y))
         return z
 
-image = torch.randn(10, 3, 256, 256)
-
 mdl = Net()
-to_save = ["conv1", "conv2"]  # save outputs of both layers
+to_save = ["conv1", "conv2"]
 
 # register fwd hooks in specified layers
 saved_activations = register_activation_hooks(mdl, layers_to_save=to_save)
 
 # run twice, then assert each created lists for conv1 and conv2, each with length 2
 num_fwd = 2
+images = [torch.randn(10, 3, 256, 256) for _ in range(num_fwd)]
 for _ in range(num_fwd):
-    mdl(image)
+    mdl(images[_])
 
 assert len(saved_activations["conv1"]) == num_fwd
 assert len(saved_activations["conv2"]) == num_fwd
