@@ -6,7 +6,8 @@ header:
     teaser: "/assets/posts/algos_studying/charts.png"
 excerpt_separator: <!--more-->
 ---
-How to reverse linked lists w/ hands tied behind your back while blindfolded underwater.
+
+Update: I wrote about how my internship experience went [here]({% post_url 2022-11-01-google-internship %}).
 <!--more-->
 
 I received great news that I did well on my Google internship technical interviews!
