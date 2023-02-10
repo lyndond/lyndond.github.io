@@ -61,7 +61,8 @@ Consider two networks (purple and orange) responding to some condition with resp
 The 2nd is what’s known as the Bures metric, which quantifies the difference in orientation and scale of the covariance noise clouds.
 <div style="text-align:center"><img src="/assets/posts/stochastic_shapes/bures.gif" style="width:15em"/></div>
 Geometrically, interpolating two covariances using the Bures metric traces out a path (a geodesic) between the two covariance clouds which linearly interpolates the sum of the principal axis standard deviations.
-The below plot shows the geodesic between covariance clouds $${\bf C}_a \rightarrow {\bf C}_b$$ and $${\bf C}_a \rightarrow {\bf C}_c$$.
+The below plot shows the geodesic between covariance clouds $${\bf C}_a \rightarrow {\bf C}_b$$ (90 degree rotation) and $${\bf C}_a \rightarrow {\bf C}_c$$ (simple isotropic scaling).
+Note that the sum of principal axis standard deviations (i.e. sum of the square rooted eigenvalues) are linearly interpolated along the geodesic.
 
 <div style="text-align:center"><img src="/assets/posts/stochastic_shapes/geodesic.png" /></div>
 

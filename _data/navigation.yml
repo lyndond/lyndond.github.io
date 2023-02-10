@@ -1,7 +1,7 @@
 # main links
 main:
-  - title: "posts"
-    url: /posts/
+  - title: "notes"
+    url: /notes/
   - title: "code"
     url: /code/
     # - title: "projects"

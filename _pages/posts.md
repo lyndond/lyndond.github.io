@@ -1,8 +1,8 @@
 ---
 layout: archive
 classes: wide
-title: posts
-permalink: /posts/
+title: notes
+permalink: /notes/
 ---
 
 <ul class="taxonomy__index">
