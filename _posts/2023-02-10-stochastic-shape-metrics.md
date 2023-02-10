@@ -13,7 +13,7 @@ Code for this post:
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2023-02-10-stochastic-shape-metrics.ipynb)
 [![Open in GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2023-02-10-stochastic-shape-metrics.ipynb)
 
-Code for methods in paper
+Code for methods in the paper:
 [![Code for methods in paper:](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/ahwillia/netrep)
 
 Neuroscience and machine learning experiments now produce datasets of several animals or networks performing the same task. Below are two matrices representing simultaneously recorded activities from neurons in two different networks.
@@ -70,6 +70,8 @@ Intuitively, you can think of Wasserstein distance as the amount of work it take
 ## Stochastic shape metrics on neural representations
 
 Equipped with the Wasserstein distance, we developed a procedure that can take two networks with stochastic responses and globally align them using a single transform, which now takes into account both their conditional mean & covariance structure. The remaining difference between them is quantified as Wasserstein distance distance between the two joint distributions.
+
+<div style="text-align:center"><img src="/assets/posts/stochastic_shapes/stochastic_aligned.png" style="width:30em"/></div>
 
 ## Application: Variational Autoencoders
 
