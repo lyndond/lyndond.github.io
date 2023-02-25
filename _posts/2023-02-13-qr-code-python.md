@@ -16,7 +16,7 @@ Code for this post:
 I wanted to put a QR code linking to an arXiv preprint on my CoSyNe poster but the online solutions all had ugly white backgrounds. So I wrote a Python snippet to generate a QR code with **transparent whitespace**. It creates a QR code, converts it to a numpy RGBA array with the alpha channel set according to whether or not there is a black pixel.
 
 ```python
-!pip instal qrcode
+!pip install qrcode
 
 import os
 from typing import Optional
