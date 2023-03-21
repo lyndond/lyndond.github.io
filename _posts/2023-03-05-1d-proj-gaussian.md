@@ -6,7 +6,7 @@ header:
     teaser: "assets/posts/1d-proj-gaussian/sliced.png"
 excerpt_separator: <!--more-->
 ---
-Geometric intuition for our recent paper on statistical whitening using overcomplete bases.
+Geometric intuition for [our recent paper](https://doi.org/10.48550/arXiv.2301.11955) on statistical whitening using overcomplete bases.
 <!--more-->
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lyndond/lyndond.github.io/blob/master/code/2023-03-05-1d-proj-gaussian.ipynb)
 [![Open on GitHub](https://img.shields.io/badge/Open on GitHub-success.svg)](https://github.com/lyndond/lyndond.github.io/blob/master/code/2023-03-05-1d-proj-gaussian.ipynb)

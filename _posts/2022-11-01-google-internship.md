@@ -5,16 +5,17 @@ tags: ml linear-algebra compression
 header:
     teaser: "assets/posts/multirate_compression/fig_arch.png"
 excerpt_separator: <!--more-->
+date: 2023-03-21
 ---
 My internship research project at Google on machine learning for video compression.
 <!--more-->
 
-Last year, I wrote about how I prepared for the Google coding interview [here]({% post_url 2021-11-22-coding-interview %}).
+I wrote about how I prepared for and passed the Google coding interview [here]({% post_url 2021-11-22-coding-interview %}).
 
 ## Internship summary
 
 For my summer 2022 internship project at Google, I worked on the Open Codecs team under the Google Chrome umbrella, researching nonlinear transform methods using machine learning (e.g. deep nets) for video compression.
-The model I developed works on intra-frame prediction residuals, and largely draws inspiration from my PhD research on adaptive gain control, and ![Ballé et al. (2020)](https://arxiv.org/abs/2007.03034).
+The model I developed works on intra-frame prediction residuals, and largely draws inspiration from my PhD research on adaptive gain control, and [Ballé et al. (2020)](https://arxiv.org/abs/2007.03034).
 
 Some general takeaways:
 
@@ -32,7 +33,7 @@ Some general takeaways:
 
 ## My project
 
-I wrote up the results in a conference paper, which is still under review at the time of this writing [(arXiv:2210.14308)](https://arxiv.org/abs/2210.14308).
+I wrote up the results for a conference paper, which was accepted to IEEE Int'l Conference on Acoustics, Speech and Signal Processing 2023 (ICASSP) taking place in Rhodes Greece [(arXiv:2210.14308)](https://doi.org/10.48550/arXiv.2301.11955)!
 Figure 1 of the paper (below) shows the architecture of the model.
 I developed a method that serves as a (non)linear drop-in replacement for or _augmentations_ to existing transform coding modules in the AV1 codec.
 The TL;DR is that a base autoencoder and hyperprior are trained on a large dataset of video frames prediction residuals.
