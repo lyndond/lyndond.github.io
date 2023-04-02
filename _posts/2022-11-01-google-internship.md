@@ -5,7 +5,6 @@ tags: ml linear-algebra compression
 header:
     teaser: "assets/posts/multirate_compression/fig_arch.png"
 excerpt_separator: <!--more-->
-date: 2023-03-21
 ---
 My internship research project at Google on machine learning for video compression.
 <!--more-->
