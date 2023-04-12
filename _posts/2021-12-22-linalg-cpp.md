@@ -23,20 +23,20 @@ In the following parts, I'll create a trainable simple neural network, and valid
 
 ## Building our own matrix library
 
-Considering for now the forward pass of a single layer neural network, $$y \leftarrow {\color{forestgreen}f(}{\color{crimson} Wx} {\color{blue}+ b}{\color{forestgreen})}$$,
-From this we see we'll need to build tools that can:
+Consider the forward pass of a single layer neural network, $$y \leftarrow {\color{forestgreen}f(}{\color{crimson} Wx} {\color{blue}+ b}{\color{forestgreen})}$$.
+From this we see that we'll need to build tools that can:
 
-* store data in a matrix (or vector)
-* <span style="color:crimson"> perform matrix products </span>
-* <span style="color:blue"> perform matrix addition </span>
-* <span style="color:forestgreen"> apply a function element-wise to a matrix </span>
+- store data in a matrix (or vector)
+- <span style="color:crimson"> perform matrix products </span>
+- <span style="color:blue"> perform matrix addition </span>
+- <span style="color:forestgreen"> apply a function element-wise to a matrix </span>
 
 Other operations that will be helpful for training a simple neural net are:
 
-* element-wise multiplication
-  * scalar multiplication as a special case
-* matrix subtraction
-* matrix transposition
+- element-wise multiplication
+  - scalar multiplication as a special case
+- matrix subtraction
+- matrix transposition
 
 ### Constructor and printing methods
 
@@ -130,7 +130,7 @@ Now we can access a matrix like `M(row, col)` and get the corresponding element 
 The most important method we'll need is a matrix multiply.
 If we're given a target matrix with which to multiply our current instantiated matrix, we need to first assert (from `#include <cassert>`) that the `cols` dimension of our current matrix matches the `rows` of our target matrix.
 
-We're going to implement the most naive/simple matrix multiplication algorithm without worrying about efficiency. 
+We're going to implement the most naive/simple matrix multiplication algorithm without worrying about efficiency.
 If the matrices were both dense and `(n x n)` square, then this would be O(n^3) time complexity.
 Optimal implentations lie somewhere between O(n^2.3) and O(n^3) (the best we could possibly hope for is O(n^2) since we'd have to loop through all the elements at least once).
 
@@ -253,7 +253,7 @@ This can be optimized by rewriting the `add()` method entirely while replacing t
 
 #### Matrix transpose
 
-To transpose a matrix, we simply swap the elements of its rows and columns. 
+To transpose a matrix, we simply swap the elements of its rows and columns.
 We can do this easily by instantiating a new `Matrix` with the transposed size of our current matrix, assign the appropriate elements to it by looping through our current matrix, then returning the new matrix.
 
 ```cpp
@@ -327,6 +327,7 @@ struct mtx {
 ```
 
 ## The fruits of our labour
+
 Now let's test all the functions we made:
 
 ```cpp
