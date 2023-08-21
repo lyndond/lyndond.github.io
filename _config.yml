@@ -180,6 +180,7 @@ incremental: false
 
 # Markdown Processing
 kramdown:
+  math_engine: mathjax
   input: GFM
   hard_wrap: false
   auto_ids: true
@@ -198,7 +199,7 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 8 # amount / number of posts to show
+paginate: 16 # amount / number of posts to show
 paginate_path: /page:num/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
