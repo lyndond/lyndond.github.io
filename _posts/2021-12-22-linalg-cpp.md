@@ -23,7 +23,7 @@ In the following parts, I'll create a trainable simple neural network, and valid
 
 ## Building our own matrix library
 
-Consider the forward pass of a single layer neural network,  y = f( Wx + b).
+Consider the forward pass of a single layer neural network, $$y \leftarrow {\color{forestgreen}f(}{\color{crimson} Wx} {\color{blue}+ b}{\color{forestgreen})}$$.
 From this we see that we'll need to build tools that can:
 
 - store data in a matrix (or vector)
@@ -216,7 +216,7 @@ Then, we'll just loop through each component of both arrays, sum them together, 
 
 #### Matrix subtraction
 
-To do a matrix operation like A = B - C, we can break it down and view it like A = (B + (-C)).
+To do a matrix operation like $$A = B - C$$, we can break it down and view it like $$A \leftarrow {\color{blue}(B +} {\color{red}(-C)}{\color{blue})}$$.
 So we can first <span style="color:red"> negate `C`</span>, then use our existing method to <span style="color:blue"> add </span> `-C` to `B`.
 
 To negate a matrix, we can write a unary `operator-()` that loops through the current matrix's data, negates every element and assigns them each to the corresponding elements of an `output` matrix.
