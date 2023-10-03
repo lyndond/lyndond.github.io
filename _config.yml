@@ -95,7 +95,7 @@ analytics:
 author:
   name: "lyndon duong"
   avatar: "/assets/images/bio-photo.png" # path of avatar image
-  bio: "neuroscience phd @ nyu"
+  bio: "vision science and ml"
   location: "new york, ny"
   links:
     - label: "email me"
