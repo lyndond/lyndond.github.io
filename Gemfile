@@ -32,6 +32,16 @@ source "https://rubygems.org"
 # # Performance-booster for watching directories on Windows
 # gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 
+# source "https://rubygems.org"
+# gemspec
+# gem 'jekyll-redirect-from'
+
 source "https://rubygems.org"
-gemspec
+
+# Add this line
+gem "minimal-mistakes-jekyll"
+
+# Use the latest version of Jekyll
+gem "jekyll", "~> 4.3"
+# Other gems like jekyll-redirect-from can stay
 gem 'jekyll-redirect-from'
