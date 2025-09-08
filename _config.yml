@@ -178,10 +178,12 @@ lsi: false
 excerpt_separator: "\n\n"
 incremental: false
 
-
 # Markdown Processing
 kramdown:
   math_engine: mathjax
+  math_engine_opts:
+    block_delimiters: [['$$', '$$']]
+    inline_delimiters: [ ['$','$'], ['\\(','\\)'] ] # Add the new delimiters here
   input: GFM
   hard_wrap: false
   auto_ids: true
@@ -190,7 +192,6 @@ kramdown:
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
-
 
 # Sass/SCSS
 sass:
