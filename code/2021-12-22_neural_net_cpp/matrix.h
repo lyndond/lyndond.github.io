@@ -1,7 +1,3 @@
-//
-// Created by Lyndon Duong on 12/21/21.
-//
-
 #pragma once
 #include <vector>
 #include <cmath>
@@ -12,34 +8,33 @@
 #include <random>
 
 namespace lynalg {
+
 template<typename Type>
 class Matrix {
-
   size_t cols;
   size_t rows;
 
- public:
+public:
   std::vector<Type> data;
   std::tuple<size_t, size_t> shape;
-  int numel = rows * cols;
+  int numel;
 
   Matrix(size_t rows, size_t cols)
-      : cols(cols), rows(rows), data({}) {
+    : cols(cols), rows(rows), data({}), numel(rows * cols) {
     data.resize(cols * rows, Type());
     shape = std::make_tuple(rows, cols);
   }
-  Matrix() : cols(0), rows(0), data({}) { shape = {rows, cols}; };
+  Matrix() : cols(0), rows(0), data({}), numel(0) { shape = {rows, cols}; };
 
   Type &operator()(size_t row, size_t col) {
-    assert (0 <= row && row < rows);
-    assert (0 <= col && col < cols);
+    assert (row < rows);
+    assert (col < cols);
     return data[row * cols + col];
   }
 
   Matrix matmul(Matrix &target) {
     assert(cols == target.rows);
     Matrix output(rows, target.cols);
-
     for (size_t r = 0; r < output.rows; ++r) {
       for (size_t c = 0; c < output.cols; ++c) {
         for (size_t k = 0; k < target.rows; ++k)
@@ -79,7 +74,6 @@ class Matrix {
   Matrix add(Matrix &target) {
     assert(shape == target.shape);
     Matrix output(rows, target.cols);
-
     for (size_t r = 0; r < output.rows; ++r) {
       for (size_t c = 0; c < output.cols; ++c) {
         output(r, c) = (*this)(r, c) + target(r, c);
@@ -87,19 +81,7 @@ class Matrix {
     }
     return output;
   }
-  Matrix operator+(Matrix &target) {
-    return add(target);
-  }
-
-  Matrix add_scalar(Type scalar) {
-    Matrix output(*(this));
-    for (size_t r = 0; r < rows; ++r) {
-      for (size_t c = 0; c < cols; ++c) {
-        output(r, c) = (*this)(r, c) + scalar;
-      }
-    }
-    return output;
-  }
+  Matrix operator+(Matrix &target) { return add(target); }
 
   Matrix operator-() {
     Matrix output(rows, cols);
@@ -110,49 +92,16 @@ class Matrix {
     }
     return output;
   }
-
+  
   Matrix sub(Matrix &target) {
     Matrix neg_target = -target;
     return add(neg_target);
   }
-  Matrix operator-(Matrix &target) {
-    return sub(target);
-  }
+  Matrix operator-(Matrix &target) { return sub(target); }
 
-  Matrix<ushort> operator==(Matrix &target) {
-    assert(shape == target.shape);
-    Matrix<ushort> output(rows, cols);
-
-    for (int r = 0; r < rows; ++r) {
-      for (int c = 0; c < cols; ++c) {
-        if ((*this)(r, c) - target(r, c) == 0.)
-          output(r, c) = 1;
-        else
-          output(r, c) = 0;
-      }
-    }
-    return output;
-  }
-
-  Matrix<ushort> operator!=(Matrix &target) {
-    return !(*this) == target;
-  }
-
-  bool all() {
-    int counter{0};
-    for (int r = 0; r < rows; ++r) {
-      for (int c = 0; c < cols; ++c) {
-        if ((*this)(r, c))
-          counter++;
-      }
-    }
-    return (counter == numel);
-  }
-
-  Matrix transpose() {
+  Matrix T() {
     size_t new_rows{cols}, new_cols{rows};
     Matrix transposed(new_rows, new_cols);
-
     for (size_t r = 0; r < new_rows; ++r) {
       for (size_t c = 0; c < new_cols; ++c) {
         transposed(r, c) = (*this)(c, r);
@@ -160,11 +109,7 @@ class Matrix {
     }
     return transposed;
   }
-  Matrix T() {
-    return (*this).transpose();
-  }
 
-  // sum all elements
   Matrix sum() {
     Matrix output{1, 1};
     for (size_t r = 0; r < rows; ++r) {
@@ -175,11 +120,9 @@ class Matrix {
     return output;
   }
 
-  // sum across dim
   Matrix sum(size_t dim) {
-    assert (0 <= dim && dim < 2);
+    assert (dim < 2);
     auto output = (dim == 0) ? Matrix{1, cols} : Matrix{rows, 1};
-
     if (dim == 0) {
       for (size_t c = 0; c < cols; ++c)
         for (size_t r = 0; r < rows; ++r)
@@ -192,37 +135,30 @@ class Matrix {
     return output;
   }
 
-  // mean of all elements
   Matrix mean() {
     auto n = Type(numel);
     return sum().multiply_scalar(1 / n);
   }
-
-  // mean across dim
+  
   Matrix mean(size_t dim) {
     auto n = (dim == 0) ? Type(rows) : Type(cols);
-    return sum().multiply_scalar(1 / n);
+    return sum(dim).multiply_scalar(1 / n);
   }
 
-  // concatenate two matrices
   Matrix cat(Matrix target, size_t dim) {
-    (dim == 0) ? assert(rows == target.rows) : assert(cols == target.cols);
-    auto output = (dim == 0) ? Matrix{rows + target.rows, cols} : Matrix{rows, cols + target.cols};
-
-    // copy self
+    (dim == 0) ? assert(cols == target.cols) : assert(rows == target.rows);
+    auto output = (dim == 0) ? Matrix{rows, cols + target.cols} : Matrix{rows + target.rows, cols};
     for (size_t r = 0; r < rows; ++r)
       for (size_t c = 0; c < cols; ++c)
         output(r, c) = (*this)(r, c);
-
-    // copy target
     if (dim == 0) {
-      for (size_t r = 0; r < target.rows; ++r)
-        for (size_t c = 0; c < cols; ++c)
-          output(r + rows, c) = target(r, c);
-    } else {
       for (size_t r = 0; r < rows; ++r)
         for (size_t c = 0; c < target.cols; ++c)
           output(r, c + cols) = target(r, c);
+    } else {
+      for (size_t r = 0; r < target.rows; ++r)
+        for (size_t c = 0; c < cols; ++c)
+          output(r + rows, c) = target(r, c);
     }
     return output;
   }
@@ -230,12 +166,12 @@ class Matrix {
   Matrix diag() {
     assert((rows == 1 || cols == 1) || (rows == cols));
     if (rows == 1 || cols == 1) {
-      Matrix output{std::max(rows, cols), std::max(rows, cols)};
-      for (size_t i = 0; i < rows; ++i)
-        output(i, i) = (*this)(i, 0);
+      size_t n = (rows > cols) ? rows : cols;
+      Matrix output{n, n};
+      for (size_t i = 0; i < n; ++i)
+        output(i, i) = (rows == 1) ? (*this)(0, i) : (*this)(i, 0);
       return output;
     } else {
-      assert(rows == cols);
       Matrix output{rows, 1};
       for (size_t i = 0; i < rows; ++i)
         output(i, 0) = (*this)(i, i);
@@ -267,7 +203,6 @@ class Matrix {
     std::cout << std::endl;
   }
 
-  // in-place fill with single value
   void fill_(Type val) {
     for (size_t r = 0; r < rows; ++r) {
       for (int c = 0; c < cols; ++c) {
@@ -275,11 +210,20 @@ class Matrix {
       }
     }
   }
-
 };
 
+
+// The mtx struct goes AFTER the Matrix class definition
 template<typename T>
 struct mtx {
+private:
+  static std::mt19937& get_generator() {
+    static std::random_device rd{};
+    static std::mt19937 gen{rd()};;
+    return gen;
+  }
+
+public:
   static Matrix<T> zeros(size_t rows, size_t cols) {
     Matrix<T> M{rows, cols};
     M.fill_(T(0));
@@ -294,13 +238,10 @@ struct mtx {
 
   static Matrix<T> randn(size_t rows, size_t cols) {
     Matrix<T> M{rows, cols};
-
-    std::random_device rd{};
-    std::mt19937 gen{rd()};
     T n(M.numel);
     T stdev{1 / sqrt(n)};
     std::normal_distribution<T> d{0, stdev};
-
+    auto& gen = get_generator();
     for (size_t r = 0; r < rows; ++r) {
       for (int c = 0; c < cols; ++c) {
         M(r, c) = d(gen);
@@ -311,11 +252,8 @@ struct mtx {
 
   static Matrix<T> rand(size_t rows, size_t cols) {
     Matrix<T> M{rows, cols};
-
-    std::random_device rd{};
-    std::mt19937 gen{rd()};
     std::uniform_real_distribution<T> d{0, 1};
-
+    auto& gen = get_generator();
     for (size_t r = 0; r < rows; ++r) {
       for (int c = 0; c < cols; ++c) {
         M(r, c) = d(gen);
@@ -323,8 +261,6 @@ struct mtx {
     }
     return M;
   }
-
 };
 
-}
-
+} // namespace lynalg

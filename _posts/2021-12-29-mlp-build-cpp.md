@@ -144,7 +144,7 @@ void backprop(Matrix<T> target) {
   for(int i = weight_matrices.size() - 1 ; i >= 0; --i) {
     //calculating errors for previous layer
     auto Wt = weight_matrices[i].T();
-    auto prev_errors = Wt.matmul(delta);
+    auto prev_errors = Wt.matmul(error);
 
     // apply derivative of function evaluated at activations
     //backprop for biases
@@ -183,7 +183,7 @@ auto make_model(size_t in_channels,
 
   units_per_layer.push_back(out_channels);
 
-  nn::MLP<float> model(units_per_layer, 0.01f);
+  nn::MLP<float> model(units_per_layer, lr);
   return model;
 }
 ```

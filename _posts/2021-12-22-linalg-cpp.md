@@ -305,18 +305,25 @@ Here's an implementation of a `randn()` matrix function that we'll use to initia
 ``` cpp
 template <typename T>
 struct mtx {
+private:
+  // This helper ensures the generator is created and seeded only ONCE.
+  static std::mt19937& get_generator() {
+    static std::random_device rd{};
+    static std::mt19937 gen{rd()};
+    return gen;
+  }
+
+public:
   static Matrix<T> randn(size_t rows, size_t cols) {
     Matrix<T> M(rows, cols);
 
-    std::random_device rd{};
-    std::mt19937 gen{rd()};
-
-    // init Gaussian distr. w/ N(mean=0, stdev=1/sqrt(numel))
     T n(M.numel);
     T stdev{1 / sqrt(n)};
     std::normal_distribution<T> d{0, stdev};
+    
+    // Get a reference to the single, persistent generator
+    auto& gen = get_generator();
 
-    // fill each element w/ draw from distribution
     for (size_t r = 0; r < rows; ++r) {
       for (int c = 0; c < cols; ++c) {
         M(r, c) = d(gen);
@@ -324,6 +331,9 @@ struct mtx {
     }
     return M;
   }
+
+  // Add other initializers like rand(), zeros(), ones() as needed.
+};
 ```
 
 ## The fruits of our labour

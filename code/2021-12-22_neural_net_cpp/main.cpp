@@ -23,7 +23,7 @@ auto make_model(size_t in_channels,
 
   units_per_layer.push_back(out_channels);
 
-  nn::MLP<float> model(units_per_layer, 0.01f);
+  nn::MLP<float> model(units_per_layer, lr);
   return model;
 }
 
@@ -48,25 +48,21 @@ void log(auto &file, const auto &x, const auto &y, const auto &y_hat){
 }
 
 int main() {
-//  test_matrix();
-
-  std::srand(42069);
 
   // init model
   int in_channels{1}, out_channels{1}, hidden_units_per_layer{8}, hidden_layers{3};
-  float lr{.5f};
-//  auto model = make_model(in_channels, out_channels, hidden_units_per_layer, hidden_layers, lr);
+  float lr{0.5f};
   auto model = make_model(
       in_channels=1,
       out_channels=1,
       hidden_units_per_layer=8,
       hidden_layers=3,
-      lr=.5f);
+      lr=0.05f);
 
   // train
   std::ofstream my_file;
-  my_file.open ("data2.txt");
-  int max_iter{1000}, print_every{500};
+  my_file.open ("data.txt");
+  int max_iter{1000000}, print_every{100}; 
   float mse;
   auto deque = std::deque<float>(print_every);
   for(int i = 1; i<=max_iter; ++i) {

@@ -6,6 +6,7 @@
 #include <random>
 #include <utility>
 #include <cassert>
+#include <tuple>
 
 using namespace lynalg;
 namespace nn {
@@ -30,10 +31,11 @@ class MLP {
 
   float lr;
 
+
   explicit MLP(std::vector<size_t> units_per_layer, float lr = .001f) :
       units_per_layer(units_per_layer),
-      weight_matrices(),
-      bias_vectors(),
+      bias_vectors(),         // <-- REORDER THESE TWO LINES
+      weight_matrices(),      // <-- TO MATCH THE CLASS DEFINITION
       activations(),
       lr(lr) {
 

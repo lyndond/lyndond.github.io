@@ -26,34 +26,39 @@ Using the `make_model()` function (defined in Part 2) to create an MLP with 3 hi
 
 ```cpp
 // main.cpp
-#include "matrix.h" // contains matrix library
-#include "nn.h"  // contains our MLP implementation
+#include "matrix.h"
+#include "nn.h"
+#include <fstream>
+#include <deque>
+
+// ... (make_model, log, mean, etc. helper functions go here) ...
 
 int main() {
-
-  // init model
-  int in_channels{1}, out_channels{1};
-  int hidden_units_per_layer{8}, hidden_layers{3};
-  float lr{.5f};
-
+  // Init model with a sensible learning rate
   auto model = make_model(
-    in_channels, 
-    out_channels, 
-    hidden_units_per_layer, 
-    hidden_layers, 
-    lr);
+      in_channels=1,
+      out_channels=1,
+      hidden_units_per_layer=8,
+      hidden_layers=3,
+      lr=0.02f);
 
-  // open file to save loss, x, y, and model(x)
-  std::ofstream my_file; 
+  // Train
+  std::ofstream my_file;
   my_file.open ("data.txt");
+  int max_iter{20000}, print_every{20};
+  
+  for(int i = 1; i<=max_iter; ++i) {
+    // Generate (x, y) training data
+    auto x = lynalg::mtx<float>::rand(1, 1).multiply_scalar(3.14159f);
+    auto y = x.apply_function([](float v) -> float {return sin(v)*sin(v);});
 
-  int max_iter{10000};
-  float mse;
+    auto y_hat = model(x);
+    model.backprop(y);
 
- //////////////////////////////////
- ////* training loop goes here*////
- //////////////////////////////////
-
+    if ((i+1) % print_every == 0) {
+      log(my_file, x, y, y_hat);
+    }
+  }
   my_file.close();
 }
 ```
