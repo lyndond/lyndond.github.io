@@ -1,6 +1,6 @@
 ---
 classes: wide
-title: "My Google internship project is now a patent!"
+title: "My Google patent!"
 date: 2025-09-06
 tags: google patent research ml compression video-codecs
 header:
